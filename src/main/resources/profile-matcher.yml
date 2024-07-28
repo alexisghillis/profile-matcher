@@ -1,0 +1,130 @@
+openapi: 3.0.0
+info:
+  title: Profile Matcher API
+  version: 1.0.0
+paths:
+  /get_client_config/{player_id}:
+    get:
+      summary: Get Client Configuration
+      parameters:
+        - name: player_id
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: The client configuration was successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PlayerProfileResponse'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: "Bad request"
+    PlayerProfileResponse:
+      type: object
+      properties:
+        player_id:
+          type: string
+        credential:
+          type: string
+        created:
+          type: string
+          format: date-time
+        modified:
+          type: string
+          format: date-time
+        last_session:
+          type: string
+          format: date-time
+        total_spent:
+          type: integer
+        total_refund:
+          type: integer
+        total_transactions:
+          type: integer
+        last_purchase:
+          type: string
+          format: date-time
+        active_campaigns:
+          type: array
+          items:
+            type: string
+        devices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+        level:
+          type: integer
+        xp:
+          type: integer
+        total_playtime:
+          type: integer
+        country:
+          type: string
+        language:
+          type: string
+        birthdate:
+          type: string
+          format: date-time
+        gender:
+          type: string
+        inventory:
+          $ref: '#/components/schemas/Inventory'
+        clan:
+          $ref: '#/components/schemas/Clan'
+        _customfield:
+          type: string
+    Device:
+      type: object
+      properties:
+        id:
+          type: integer
+        model:
+          type: string
+        carrier:
+          type: string
+        firmware:
+          type: string
+    Inventory:
+      type: object
+      properties:
+        cash:
+          type: integer
+        coins:
+          type: integer
+        item_1:
+          type: integer
+        item_34:
+          type: integer
+        item_55:
+          type: integer
+    Clan:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="1" author="alexis-toma.ghillis">
+        <createTable tableName="player_profile">
+            <column name="player_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="credential" type="VARCHAR(255)"/>
+            <column name="created" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="modified" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="last_session" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="total_spent" type="DOUBLE"/>
+            <column name="total_refund" type="DOUBLE"/>
+            <column name="total_transactions" type="INT"/>
+            <column name="last_purchase" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="active_campaigns" type="TEXT"/>
+            <column name="level" type="INT"/>
+            <column name="xp" type="INT"/>
+            <column name="total_playtime" type="INT"/>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="language" type="VARCHAR(255)"/>
+            <column name="birthdate" type="TIMESTAMP WITH TIME ZONE"/>
+            <column name="gender" type="VARCHAR(10)"/>
+            <column name="inventory" type="TEXT"/>
+            <column name="custom_field" type="VARCHAR(255)"/>
+        </createTable>
+
+        <createTable tableName="player_profile_device">
+            <column name="player_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="device_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey columnNames="player_id, device_id" tableName="player_profile_device" constraintName="pk_player_profile_device"/>
+    </changeSet>
+
+    <changeSet id="2" author="alexis-toma.ghillis">
+        <createTable tableName="device">
+            <column name="device_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3" author="alexis-toma.ghillis">
+        <createTable tableName="clan">
+            <column name="clan_id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="description" type="VARCHAR(255)"/>
+            <column name="player_id" type="UUID">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+                constraintName="fk_clan_player_profile"
+                baseTableName="clan"
+                baseColumnNames="player_id"
+                referencedTableName="player_profile"
+                referencedColumnNames="player_id"/>
+    </changeSet>
+</databaseChangeLog>
