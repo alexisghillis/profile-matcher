@@ -2,6 +2,8 @@ package com.gameloft.profile.matcher.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,6 +24,8 @@ public class Device {
     @Column(name = "description")
     private String description;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToMany(mappedBy = "devices")
     private Set<PlayerProfile> playerProfiles = new HashSet<>();
 }

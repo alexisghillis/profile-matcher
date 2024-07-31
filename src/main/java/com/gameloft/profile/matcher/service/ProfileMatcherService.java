@@ -23,7 +23,7 @@ public class ProfileMatcherService {
     public PlayerProfile updatePlayerProfile(UUID playerId) {
         List<Campaign> campaigns = campaignService.getRunningCampaigns();
 
-        Optional<PlayerProfile> optionalPlayerProfile = playerProfileRepository.findById(playerId);
+        Optional<PlayerProfile> optionalPlayerProfile = playerProfileRepository.findByPlayerId(playerId);
 
         PlayerProfile playerProfile = optionalPlayerProfile
                 .orElseThrow(() -> new ResourceNotFoundException("Player not found"));
@@ -34,6 +34,11 @@ public class ProfileMatcherService {
                     updateProfile(playerProfile, campaign);
                     playerProfileRepository.save(playerProfile);
                 }
+            }
+
+            if(!isCampaignActive(campaign) && playerProfile.getActiveCampaigns().contains(campaign.getName())){
+                removeCampaignFromProfile(playerProfile, campaign);
+                playerProfileRepository.save(playerProfile);
             }
         }
         return playerProfile;
@@ -68,4 +73,10 @@ public class ProfileMatcherService {
         profile.getActiveCampaigns().add(campaign.getName());
         profile.setModified(OffsetDateTime.now());
     }
+
+    private void removeCampaignFromProfile(PlayerProfile profile, Campaign campaign) {
+        profile.getActiveCampaigns().remove(campaign.getName());
+        profile.setModified(OffsetDateTime.now());
+    }
+
 }

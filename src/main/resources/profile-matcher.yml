@@ -1,10 +1,11 @@
-openapi: 3.0.0
+openapi: 3.0.3
 info:
   title: Profile Matcher API
   version: 1.0.0
 paths:
   /get_client_config/{player_id}:
     get:
+      operationId: getClientConfigPlayerIdGet
       summary: Get Client Configuration
       parameters:
         - name: player_id
@@ -48,6 +49,7 @@ components:
       properties:
         player_id:
           type: string
+          format: uuid
         credential:
           type: string
         created:
@@ -70,12 +72,14 @@ components:
           format: date-time
         active_campaigns:
           type: array
+          uniqueItems: true
           items:
             type: string
         devices:
           type: array
+          uniqueItems: true
           items:
-            $ref: '#/components/schemas/Device'
+            $ref: '#/components/schemas/DeviceResponse'
         level:
           type: integer
         xp:
@@ -92,39 +96,30 @@ components:
         gender:
           type: string
         inventory:
-          $ref: '#/components/schemas/Inventory'
+          type: object
+          additionalProperties:
+            type: integer
         clan:
-          $ref: '#/components/schemas/Clan'
+          $ref: '#/components/schemas/ClanResponse'
         _customfield:
           type: string
-    Device:
+    DeviceResponse:
       type: object
       properties:
         id:
-          type: integer
+          type: string
+          format: uuid
         model:
           type: string
         carrier:
           type: string
         firmware:
           type: string
-    Inventory:
-      type: object
-      properties:
-        cash:
-          type: integer
-        coins:
-          type: integer
-        item_1:
-          type: integer
-        item_34:
-          type: integer
-        item_55:
-          type: integer
-    Clan:
+    ClanResponse:
       type: object
       properties:
         id:
-          type: string
+          type: integer
+          format: int64
         name:
           type: string

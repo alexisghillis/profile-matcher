@@ -15,8 +15,8 @@
             <column name="created" type="TIMESTAMP WITH TIME ZONE"/>
             <column name="modified" type="TIMESTAMP WITH TIME ZONE"/>
             <column name="last_session" type="TIMESTAMP WITH TIME ZONE"/>
-            <column name="total_spent" type="DOUBLE"/>
-            <column name="total_refund" type="DOUBLE"/>
+            <column name="total_spent" type="INT"/>
+            <column name="total_refund" type="INT"/>
             <column name="total_transactions" type="INT"/>
             <column name="last_purchase" type="TIMESTAMP WITH TIME ZONE"/>
             <column name="active_campaigns" type="TEXT"/>

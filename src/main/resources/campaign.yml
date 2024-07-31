@@ -6,6 +6,7 @@ info:
 paths:
   /campaigns:
     get:
+      operationId: getCampaigns
       summary: Retrieve current running campaigns
       responses:
         '200':

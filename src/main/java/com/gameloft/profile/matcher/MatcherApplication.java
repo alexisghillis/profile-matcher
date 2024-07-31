@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableFeignClients(basePackages = "com.gameloft.profile.matcher.rest")
-@ComponentScan(basePackages = "com.gameloft.profile.matcher.converter")
+@ComponentScan(basePackages = {"com.gameloft.profile.matcher"})
 public class MatcherApplication {
 
 	public static void main(String[] args) {

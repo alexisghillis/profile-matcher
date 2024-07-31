@@ -2,6 +2,8 @@ package com.gameloft.profile.matcher.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Entity
 @Table(name = "clan")
@@ -19,6 +21,8 @@ public class Clan {
     @Column(name = "description")
     private String description;
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "player_id")
     private PlayerProfile playerProfile;
