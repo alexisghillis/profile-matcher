@@ -1,5 +1,6 @@
 package com.gameloft.profile.matcher.controller;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gameloft.profile.matcher.api.CampaignsApi;
 import com.gameloft.profile.matcher.api.model.CampaignResponse;
@@ -7,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
-import com.fasterxml.jackson.core.type.TypeReference;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -107,14 +107,14 @@ components:
       type: object
       properties:
         id:
-          type: string
-          format: uuid
+          type: integer
+          format: int64
         model:
           type: string
         carrier:
           type: string
         firmware:
-          type: string
+          type: integer
     ClanResponse:
       type: object
       properties:

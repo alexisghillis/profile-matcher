@@ -7,7 +7,8 @@ import com.gameloft.profile.matcher.entity.Clan;
 import com.gameloft.profile.matcher.entity.Device;
 import com.gameloft.profile.matcher.entity.PlayerProfile;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class PlayerProfileConverter {
@@ -81,6 +82,9 @@ public class PlayerProfileConverter {
 
             DeviceResponse response = new DeviceResponse();
             response.setId(device.getDeviceId());
+            response.setCarrier(device.getCarrier());
+            response.setFirmware(device.getFirmware());
+            response.setModel(device.getModel());
 
             return response;
         }

@@ -35,7 +35,7 @@
             <column name="player_id" type="UUID">
                 <constraints nullable="false"/>
             </column>
-            <column name="device_id" type="UUID">
+            <column name="device_id" type="bigint">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -44,11 +44,12 @@
 
     <changeSet id="2" author="alexis-toma.ghillis">
         <createTable tableName="device">
-            <column name="device_id" type="UUID">
+            <column name="device_id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="name" type="VARCHAR(255)"/>
-            <column name="description" type="VARCHAR(255)"/>
+            <column name="model" type="VARCHAR(255)"/>
+            <column name="carrier" type="VARCHAR(255)"/>
+            <column name="firmware" type="INT"/>
         </createTable>
     </changeSet>
 
@@ -70,5 +71,25 @@
                 baseColumnNames="player_id"
                 referencedTableName="player_profile"
                 referencedColumnNames="player_id"/>
+    </changeSet>
+    <changeSet id="4" author="alexis-toma.ghillis">
+        <createSequence
+                sequenceName="clan_seq"
+                startValue="1"
+                incrementBy="1"
+                minValue="1"
+                maxValue="9223372036854775807"
+        cacheSize="1"
+        cycle="false"/>
+    </changeSet>
+    <changeSet id="5" author="alexis-toma.ghillis">
+        <createSequence
+                sequenceName="device_seq"
+                startValue="1"
+                incrementBy="1"
+                minValue="1"
+                maxValue="9223372036854775807"
+                cacheSize="1"
+                cycle="false"/>
     </changeSet>
 </databaseChangeLog>

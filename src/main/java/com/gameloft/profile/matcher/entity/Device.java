@@ -14,15 +14,19 @@ import java.util.UUID;
 @Data
 public class Device {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "device_seq_gen")
+    @SequenceGenerator(name = "device_seq_gen", sequenceName = "device_seq", allocationSize = 1)
     @Column(name = "device_id")
-    private UUID deviceId;
+    private Long deviceId;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "model")
+    private String model;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "carrier")
+    private String carrier;
+
+    @Column(name = "firmware")
+    private Integer firmware;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

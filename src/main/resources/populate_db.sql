@@ -13,15 +13,15 @@ INSERT INTO player_profile (
 );
 
 INSERT INTO device (
-    device_id, name, description
+    device_id, model, carrier, firmware
 ) VALUES (
-    '1c9b1a8a-59b1-4e8d-9f62-2d5f839c7412', 'apple iphone 11', 'vodafone, firmware: 123'
+    '1', 'apple iphone 11', 'vodafone', '123'
 );
 
 INSERT INTO player_profile_device (
     player_id, device_id
 ) VALUES (
-    '97983be2-98b7-11e7-90cf-082e5f28d836', '1c9b1a8a-59b1-4e8d-9f62-2d5f839c7412'
+    '97983be2-98b7-11e7-90cf-082e5f28d836', '1'
 );
 
 INSERT INTO clan (

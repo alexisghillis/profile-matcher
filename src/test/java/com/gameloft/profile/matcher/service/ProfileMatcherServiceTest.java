@@ -1,11 +1,5 @@
 package com.gameloft.profile.matcher.service;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
-
-import java.time.OffsetDateTime;
-import java.util.*;
-
 import com.gameloft.profile.matcher.entity.Campaign;
 import com.gameloft.profile.matcher.entity.PlayerProfile;
 import com.gameloft.profile.matcher.exceptions.ResourceNotFoundException;
@@ -13,9 +7,14 @@ import com.gameloft.profile.matcher.repository.PlayerProfileRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.time.OffsetDateTime;
+import java.util.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class ProfileMatcherServiceTest {
@@ -26,7 +25,7 @@ public class ProfileMatcherServiceTest {
     @Mock
     private PlayerProfileRepository playerProfileRepository;
 
-    @InjectMocks
+
     private ProfileMatcherService profileMatcherService;
 
     private UUID playerId;
@@ -48,6 +47,7 @@ public class ProfileMatcherServiceTest {
     public void updatePlayerProfile_throwsResourceNotFoundException_whenPlayerNotFound() {
         when(playerProfileRepository.findByPlayerId(playerId)).thenReturn(Optional.empty());
         when(campaignService.getRunningCampaigns()).thenReturn(List.of(activeCampaign));
+        profileMatcherService = new ProfileMatcherService(campaignService, playerProfileRepository);
 
         assertThrows(ResourceNotFoundException.class, () -> profileMatcherService.updatePlayerProfile(playerId));
 
@@ -59,6 +59,7 @@ public class ProfileMatcherServiceTest {
     public void updatePlayerProfile_updatesProfile_whenCampaignMatches() {
         when(playerProfileRepository.findByPlayerId(playerId)).thenReturn(Optional.of(playerProfile));
         when(campaignService.getRunningCampaigns()).thenReturn(List.of(activeCampaign));
+        profileMatcherService = new ProfileMatcherService(campaignService, playerProfileRepository);
 
         PlayerProfile updatedProfile = profileMatcherService.updatePlayerProfile(playerId);
 
@@ -71,6 +72,7 @@ public class ProfileMatcherServiceTest {
         when(playerProfileRepository.findByPlayerId(playerId)).thenReturn(Optional.of(playerProfile));
         activeCampaign.getMatchers().getHas().setItems(List.of("nonexistent_item"));
         when(campaignService.getRunningCampaigns()).thenReturn(List.of(activeCampaign));
+        profileMatcherService = new ProfileMatcherService(campaignService, playerProfileRepository);
 
         PlayerProfile updatedProfile = profileMatcherService.updatePlayerProfile(playerId);
 
@@ -83,6 +85,7 @@ public class ProfileMatcherServiceTest {
         playerProfile.getActiveCampaigns().add("Inactive Campaign");
         when(playerProfileRepository.findByPlayerId(playerId)).thenReturn(Optional.of(playerProfile));
         when(campaignService.getRunningCampaigns()).thenReturn(List.of(inactiveCampaign));
+        profileMatcherService = new ProfileMatcherService(campaignService, playerProfileRepository);
 
         PlayerProfile updatedProfile = profileMatcherService.updatePlayerProfile(playerId);
 
@@ -97,6 +100,7 @@ public class ProfileMatcherServiceTest {
 
         when(playerProfileRepository.findByPlayerId(playerId)).thenReturn(Optional.of(playerProfile));
         when(campaignService.getRunningCampaigns()).thenReturn(List.of(activeCampaign, secondCampaign));
+        profileMatcherService = new ProfileMatcherService(campaignService, playerProfileRepository);
 
         PlayerProfile updatedProfile = profileMatcherService.updatePlayerProfile(playerId);
 
